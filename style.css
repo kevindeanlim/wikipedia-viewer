@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css?family=Lato|Raleway');
+
+body {
+  background-color: rgb(92, 143, 147);
+  color: white;
+  font-family: 'Lato', sans-serif;
+}
+h1 {
+  margin: 2%;
+  font-weight: lighter;
+  text-align: center;
+}
+h2 {
+  color: rgb(55, 100, 103);
+}
+p {
+  color: white;
+}
+a {
+  color: white;
+  text-decoration: none;
+}
+footer {
+  margin-top: 1%;
+  text-align: center;
+  font-family: Raleway;
+}
+
+input[type=text] {
+    width: 50%;
+    border: 3px solid rgb(55, 100, 103);
+    border-radius: 20px;
+    font-size: 16px;
+    font-family: 'Lato', sans-serif;
+    background-color: rgb(210, 224, 219);
+    padding: 1%;
+    -webkit-transition: width 0.4s ease-in-out;
+    -moz-transition: width 0.4s ease-in-out;
+    -ms-transition: width 0.4s ease-in-out;
+    -o-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+}
+
+input[type=text]:focus
+input[type=text]:active,
+input[type=text]:hover {
+    width: 75%;
+}
+
+button {
+  margin: 1%;
+  border: 3px solid transparent;
+  background-color: rgb(55, 100, 103);
+  color: rgb(210, 224, 219);
+  padding: 1%;
+  border-radius: 4px;
+  transition-duration: .5s;
+  cursor: pointer;
+  font-size: 16px;
+}
+button:hover {
+  background-color: rgb(210, 224, 219);
+  color: rgb(55, 100, 103);
+}
+
+.displayBox {
+  background-color: rgb(210, 224, 219);
+  margin: 2%;
+  padding: 1%;
+  cursor: pointer;
+  border-style: 4px solid transparent;
+  border-radius: 4px;
+  /* to make boxes grow on hover */
+  -webkit-transition-duration: 0.3s;
+  -moz-transition-duration: 0.3s;
+  -ms-transition-duration: 0.3s;
+  -o-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: transform;
+  -moz-transition-property: transform;
+  -ms-transition-property: transform;
+  -o-transition-property: transform;
+  transition-property: transform;
+}
+.displayBox p {
+  color: rgb(86, 129, 140);
+}
+.displayBox:hover,
+.displayBox:active,
+.displayBox:focus {
+  -webkit-transform: scale(1.04);
+  -moz-transform: scale(1.04);
+  -ms-transform: scale(1.04);
+  -o-transform: scale(1.04);
+  transform: scale(1.04);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 100%, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.fadeInUp {
+  animation-duration: 1s;
+  animation-name: fadeInUp;
+}

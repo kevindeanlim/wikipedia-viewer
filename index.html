@@ -1,0 +1,96 @@
+<!DOCTYPE = html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="keywords" content="Wikipedia, search">
+  <meta name="description" content="Wikipedia API search viewer">
+  <meta name="author" content="Kevin Dean Lim">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Wikipedia Search</title>
+</head>
+
+
+<body>
+<h1 class="animated fadeInUp">Wikipedia Search</h1>
+<div style="text-align:center">
+  <input type="text" placeholder="Search Query Here" value="Pokemon" id="searchInput"></input>
+  <br/>
+  <button id="searchBtn">Search Term</button>
+  <button id="randomBtn">Random Articles</button>
+</div>
+
+<div id="dataDiv"></div>
+
+<footer>Coded by <a href="https://github.com/kevindeanlim">Kevin</a> || Powered by <a href="https://www.wikipedia.org">Wikipedia API</a>
+<!-- with help from hover.css and animate.css-->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script>
+// Wikipedia Search API access
+var searchTerm = "";
+$("#searchBtn").click(function(){
+  searchTerm = $("#searchInput")[0].value;
+  if (!searchTerm) {
+    window.alert("No Search Query Detected");
+    return;
+  }
+
+  $.ajax({
+    url: 'https://en.wikipedia.org/w/api.php',
+    dataType: 'jsonp',
+    data: {
+      action: 'opensearch',
+      search: searchTerm,
+      limit: 10
+      },
+    success: function(data) {
+      $("#dataDiv").html('');
+      if(!data[1][0]){
+        $("#dataDiv").append('<div class="fadeInUp displayBox"><h2>' + 'No Data Returned' + ' </h2><p>' + 'Nothing related to this search term was found in the Wikipedia database. Please try a different search term.' + '</p></div></a>');
+      }
+
+      /* Troubleshooting
+      console.log(data); //
+      console.log(data[1][0]); //Title
+      console.log(data[2][0]); //Summary
+      console.log(data[3][0]); //Link */
+
+      // Creates information boxes with data
+      for (var i = 0; i < data[1].length; i++) {
+        $("#dataDiv").append('<a href="' + data[3][i] + '" target="_blank"><div class="fadeInUp displayBox"><h2>' + data[1][i] + ' </h2><p>' + data[2][i] + '</p></div></a>');
+      }
+    }
+  });
+// end of search button function
+  });
+
+// get random articles button
+$("#randomBtn").click(function(){
+  $.ajax({
+    url: 'https://en.wikipedia.org//w/api.php?action=query&format=json&prop=info%7Cextracts&generator=random&inprop=url&exintro=1&exlimit=max&explaintext=1&exsentences=2&grnnamespace=0&grnfilterredir=nonredirects&grnlimit=5',
+    dataType: 'jsonp',
+    data: {
+      format: 'json',
+      origin: '*'
+    },
+    success: function(data) {
+      $("#dataDiv").html('');
+
+      //to get array of random keys given by Wikipedia
+      var dataKeys = Object.keys(data['query']['pages']);
+      for (var i = 0; i < dataKeys.length; i++) {
+        var z = data['query']['pages'][dataKeys[i]];
+        $("#dataDiv").append('<a href="' + z['fullurl'] + '" target="_blank"><div class="fadeInUp displayBox"><h2>' + z['title'] + ' </h2><p>' + z['extract'] + '</p></div></a>');
+      }
+    }
+  })
+});
+
+
+// how to get a loading animation?
+
+</script>
+
+</body>
+</html>
